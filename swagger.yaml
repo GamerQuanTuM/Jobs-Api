@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  description: ""
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://warm-gorge-81701.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - User
+      summary: Register User
+      description: This route is for registering a user
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterUserRequest"
+            example:
+              name: Shuvam
+              email: Shuvam1889123@test.com
+              password: Shuvam123
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - User
+      summary: Login User
+      description: This route is for logging in a user
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginUserRequest"
+            example:
+              email: Shuvam18889@test.com
+              password: Shuvam123
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+        - Job
+      summary: Create A Job
+      description: This route can be used to create a job by a user
+      operationId: CreateAJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAJobRequest"
+            example:
+              company: TCS
+              position: project manager
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+
+    get:
+      tags:
+        - Job
+      summary: Get All Jobs
+      description: This route can be used to get all jobs by a user
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job ID
+    get:
+      tags:
+        - Job
+      summary: Get Single Job
+      description: This route is used to get a single job by a user
+      operationId: GetSingleJob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Job
+      summary: Update A Job
+      description: This route can be used to update a job by a user
+      operationId: UpdateAJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateaJobRequest"
+            example:
+              company: facebook
+              position: data scientist
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+
+    delete:
+      tags:
+        - Job
+      summary: Delete A Job
+      description: This route can be used by a user to delete a job
+      operationId: DeleteAJob
+      parameters:
+        - name: Content-Type
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            enum:
+              - application/json
+            type: string
+            example: application/json
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Shuvam
+        email: Shuvam1889123@test.com
+        password: Shuvam123
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: Shuvam18889@test.com
+        password: Shuvam123
+    CreateAJobRequest:
+      title: CreateAJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: TCS
+        position: project manager
+    UpdateaJobRequest:
+      title: UpdateaJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: facebook
+        position: data scientist
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: User
+    description: Routes for a user to login and register
+  - name: Job
+    description: Routes for a User to create,get,update,delete their respectives jobs
